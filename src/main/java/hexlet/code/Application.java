@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
 
 public class Application{
     public static void main(String[] args) throws SQLException {
@@ -28,7 +29,7 @@ public class Application{
             prepareStatement.setString(3, "mdk2@mags");
             prepareStatement.executeUpdate();
 
-            prepareStatement.setString(1, "Jack");
+            prepareStatement.setString(1, "Richy");
             prepareStatement.setString(2, "12894");
             prepareStatement.setString(3, "MKDIR@pochat");
             prepareStatement.executeUpdate();
@@ -55,9 +56,25 @@ public class Application{
             while (resultSet.next()) {
                 System.out.println(resultSet.getString("username"));
                 System.out.println(resultSet.getString("phone"));
-                System.out.println(resultSet.getString("email"));
+                System.out.println(resultSet.getString("email") + "\n");
             }
         }
+        User user = new User("Chack", "10290");
+        User user2 = new User("Jack", "991034");
+        User user3 = new User("Rick", "37105");
+        User user4 = new User("Dickon", "0019273");
+        User user5 = new User("Habr", "991073");
+
+        DAO dao = new DAO(conn);
+        dao.save(user);
+        dao.save(user2);
+        dao.save(user3);
+        dao.save(user4);
+        dao.save(user5);
+
+        Optional<User> optUser = dao.find(Long.valueOf(5));
+        System.out.println(optUser.get().getName());
+
         }
     }
 }
